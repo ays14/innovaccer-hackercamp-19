@@ -4,6 +4,19 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
+const config = require('./config');
+const axios = require('axios');
+const CryptoJS = require('crypto-js');
+const tunnel = require('tunnel');
+ 
+const agent = tunnel.httpsOverHttp({
+  proxy: {
+    host: config.host,
+	port: config.port,
+	proxyAuth: config.proxyAuth,
+  }
+});
+
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
@@ -18,6 +31,30 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+/* 
+Get auth token from Apimedic API
+*/
+const hash = CryptoJS.HmacMD5(config.uriLogin, config.password);
+const hashString = hash.toString(CryptoJS.enc.Base64);
+axios({
+	method: 'post',
+	url: config.uriLogin,
+	headers: {
+		'Authorization': `Bearer ${config.username}:${hashString}`
+	},
+	proxy: false,
+	httpsAgent: agent
+}).then((response) => {
+	let token = response.data.Token;
+	console.log(`Token: ${token}`);
+
+	return token;
+}).catch((error) => {
+	console.log(error);
+	return null;
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
