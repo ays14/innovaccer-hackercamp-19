@@ -92,12 +92,12 @@ router.post('/diagnosis', (req, res) => {
 });
 
 router.post('/diagnosis/condition', (req, res) => {
-	let queryCondition = req.body.condition;
+	let queryCondition = (req.body.condition).toLowerCase();
 	let keys = ['Treatment', 'Prevention', 'Specialty'];
-	scrapper.scrapWiki(queryCondition).then((arr) => {
-		let info = scrapper.extractFromWiki(keys, arr);
-		Conditions.findOne({condition: queryCondition}).then((doc) => {
-			if (doc === null) {
+	Conditions.findOne({condition: queryCondition}).then((doc) => {
+		if (doc === null) {
+			scrapper.scrapWiki(queryCondition).then((arr) => {
+			let info = scrapper.extractFromWiki(keys, arr);
 				Conditions.create({
 					'condition': queryCondition,
 					'treatment': info[0],
@@ -117,7 +117,13 @@ router.post('/diagnosis/condition', (req, res) => {
 					res.json({500: 'Database error in create'});
 					res.end();
 				})
+			}).catch((err) => {
+				console.log(err);
+				res.json({500: 'Scrap error'});
+				res.end();
+			})
 			} else {
+				console.log('Entry found in db');
 				res.json({
 					'Condition':doc.condition,
 					'Treatment':doc.treatment,
@@ -131,11 +137,7 @@ router.post('/diagnosis/condition', (req, res) => {
 			res.json({500: 'Database error in find'});
 			res.end();
 		})
-	}).catch((err) => {
-		console.log(err);
-		res.json({500: 'Scrap error'});
-		res.end();
-	})
+	
 });
 
 

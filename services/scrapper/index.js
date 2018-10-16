@@ -22,6 +22,7 @@ const scrapWiki = (searchString) => {
 		.click('#searchButton')
 		.wait('#content')
 		.evaluate((selector) => {
+			console.log('[Scrapper] Info found');
 			let nodeList = (document.querySelectorAll(selector))
 			let arr = [].slice.call(nodeList).map(nodeList =>  nodeList.innerText)
 			/* 
@@ -33,7 +34,7 @@ const scrapWiki = (searchString) => {
 		}, selector)
 		.end()
 		.then((result) => {
-			// console.log(result);
+			console.log('[Scrapper] Info collected');
 			resolve(result);
 		})
 		.catch((err) => {
@@ -51,13 +52,14 @@ const scrapEMed = () => {
 		.goto('https://www.emedexpert.com/lists/conditions.shtml')
 		.wait(3500)
 		.evaluate((selector) => {
+			console.log('[Scrapper] Info found');
 			let nodeList = document.querySelectorAll(selector)
 			let arr = [].slice.call(nodeList).map(nodeList => nodeList.innerText)
 			return arr
 		}, selector)
 		.end()
 		.then((result) => {
-			// console.log(result);
+			console.log('[Scrapper] Info collected');
 			resolve(result);
 		})
 		.catch((err) => {
@@ -68,6 +70,7 @@ const scrapEMed = () => {
 };
 
 const extractFromWiki = (keywords, array) => {
+	console.log('[Scrapper] Extracting info');
 	let data = [];
 	array.forEach((index) => {
 		for (let j = 0; j< keywords.length; j++) {
@@ -80,6 +83,7 @@ const extractFromWiki = (keywords, array) => {
 };
 
 const extractFromEMed = (condition, array) => {
+	console.log('[Scrapper] Extracting info');
 	let data = '';
 	/* array.forEach((index) => {
 		if (index.toLowerCase().startsWith(condition.toLowerCase())) {
