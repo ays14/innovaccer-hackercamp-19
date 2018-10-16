@@ -3,10 +3,19 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const mongoose = require('mongoose');
 
+const config = require('./config');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const apiRouter  = require('./routes/apiRoutes');
+
+mongoose.Promise = require('bluebird');
+const connect = mongoose.connect(config.dbUrl);
+connect.then(() => {
+	console.log('Database connected');
+});
+
 
 const app = express();
 

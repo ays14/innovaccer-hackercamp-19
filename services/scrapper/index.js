@@ -1,11 +1,14 @@
 const Nightmare = require('nightmare');
-// const config = require('../../config');
+const config = require('../../config');
 const Promise = require('promise');
+
+let proxy = 'http://'+ config.host + ':' + config.port;
+console.log(proxy);
 
 const nightmare = Nightmare({ 
 	show: false,
 	switches: {
-		'proxy-server': 'http://202.141.80.20:3128'
+		'proxy-server': proxy
 	}
 });
 
@@ -13,8 +16,7 @@ const scrapWiki = (searchString) => {
 	return new Promise((resolve, reject) => {
 		let selector = '#mw-content-text table.infobox tr';
 		nightmare
-		// .authentication(config.proxyUsername, config.proxyPassword)
-		.authentication('fabays','Ashi')
+		.authentication(config.proxyUsername, config.proxyPassword)
 		.goto('https://en.wikipedia.org')
 		.type('#searchInput', searchString)
 		.click('#searchButton')
@@ -31,7 +33,7 @@ const scrapWiki = (searchString) => {
 		}, selector)
 		.end()
 		.then((result) => {
-			console.log(result);
+			// console.log(result);
 			resolve(result);
 		})
 		.catch((err) => {
@@ -45,8 +47,7 @@ const scrapEMed = () => {
 	return new Promise((resolve, reject) => {
 		let selector = 'table.listtable tr td';
 		nightmare
-		// .authentication(config.proxyUsername, config.proxyPassword)
-		.authentication('fabays','Ashi')
+		.authentication(config.proxyUsername, config.proxyPassword)
 		.goto('https://www.emedexpert.com/lists/conditions.shtml')
 		.wait(3500)
 		.evaluate((selector) => {
@@ -56,7 +57,7 @@ const scrapEMed = () => {
 		}, selector)
 		.end()
 		.then((result) => {
-			console.log(result);
+			// console.log(result);
 			resolve(result);
 		})
 		.catch((err) => {

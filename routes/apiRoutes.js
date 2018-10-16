@@ -2,20 +2,21 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 const services = require('../services');
+const scrapper = require('../services/scrapper');
 const config = require('../config');
 const tunnel = require('tunnel');
-const Qs = require('qs');
-const request = require('request');
+
+const Conditions = require('../models/Conditions');
 
 const agent = tunnel.httpsOverHttp({
 		proxy: {
 			host: config.host,
 			port: config.port,
-			proxyAuth: config.proxyAuth,
+			proxyAuth: config.proxyUsername.concat(':').concat(config.proxyPassword),
 		}
 	});
 
-// get symptoms
+// get symptoms API 1
 router.get('/symptoms', (req, res) => {
 	let hash = services.genHashString();
 	services.getToken()
@@ -48,7 +49,7 @@ router.get('/symptoms', (req, res) => {
 	});
 });
 
-//get diagnosis for provided symptom 
+//get diagnosis for provided symptom API 2
 router.post('/diagnosis', (req, res) => {
 	let hash = services.genHashString();
 	if (req.body.gender == 'male' || req.body.gender == 'female') {
@@ -90,6 +91,108 @@ router.post('/diagnosis', (req, res) => {
 	}
 });
 
+router.post('/diagnosis/condition', (req, res) => {
+	let queryCondition = req.body.condition;
+	let keys = ['Treatment', 'Prevention', 'Specialty'];
+	scrapper.scrapWiki(queryCondition).then((arr) => {
+		let info = scrapper.extractFromWiki(keys, arr);
+		Conditions.findOne({condition: queryCondition}).then((doc) => {
+			if (doc === null) {
+				Conditions.create({
+					'condition': queryCondition,
+					'treatment': info[0],
+					'prevention': info[1],
+					'specialty': info[2],
+				}).then((data) => {
+					console.log('Entry saved in database ' + data);
+					res.json({
+						'Condition':data.condition,
+						'Treatment':data.treatment,
+						'Prevention':data.prevention,
+						'Specialty':data.specialty
+					});
+					res.end();
+				}).catch((err) => {
+					console.log(err);
+					res.json({500: 'Database error in create'});
+					res.end();
+				})
+			} else {
+				res.json({
+					'Condition':doc.condition,
+					'Treatment':doc.treatment,
+					'Prevention':doc.prevention,
+					'Specialty':doc.specialty
+				});
+				res.end();
+			}
+		}).catch((err) => {
+			console.log(err)
+			res.json({500: 'Database error in find'});
+			res.end();
+		})
+	}).catch((err) => {
+		console.log(err);
+		res.json({500: 'Scrap error'});
+		res.end();
+	})
+});
+
+
+/*
+// scrap data for API 3
+router.post('/condition', (req, res) => {
+	let queryCondition = req.body.condition;
+	let keys = ['Treatment', 'Prevention', 'Specialty'];
+	scrapper.scrapEMed().then((drug) => {
+		let meds = scrapper.extractFromEMed(queryCondition, drug);
+		scrapper.scrapWiki(queryCondition).then((arr) => {
+			let info = scrapper.extractFromWiki(keys, arr);
+			console.log(info);
+			// info.forEach((index) => {
+			// 	if (index == null) {
+			// 		index = 'Could not find. Try searching on Google.com or please, consult a physician'
+			// 	}
+			// });
+			Conditions.findOne({condition: queryCondition}).then((doc) => {
+				if (doc === null) {
+					Conditions.create({
+						'condition': queryCondition,
+						'treatment': info[0],
+						'prevention': info[1],
+						'specialty': info[2],
+						'medication': meds
+					}).then((data) => {
+						console.log('Entry saved in database ' + data);
+						res.json(data);
+						res.end();
+					}).catch((err) => {
+						console.log(err);
+						res.json({500: 'Database error in create'});
+						res.end();
+					})
+				} else {
+					res.json(doc);
+					res.end();
+				}
+			}).catch((err) => {
+				console.log(err)
+				res.json({500: 'Database error in find'});
+				res.end();
+			})
+		}).catch((err) => {
+			console.log(err);
+			res.json({500: 'Scrap error'});
+			res.end();
+		})
+	}).catch((err) => {
+		console.log(err);
+		res.json({500: 'Invalid condition'});
+		res.end();
+	})
+
+})
+*/
 /*
 ? The following is the same above code for diagnosis but implemented in request module
 

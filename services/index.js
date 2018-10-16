@@ -8,7 +8,7 @@ const agent = tunnel.httpsOverHttp({
 		proxy: {
 			host: config.host,
 			port: config.port,
-			proxyAuth: config.proxyAuth,
+			proxyAuth: config.proxyUsername.concat(':').concat(config.proxyPassword),
 		}
 	});
 
