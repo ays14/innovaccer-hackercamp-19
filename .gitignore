@@ -1,3 +1,7 @@
 /node_modules
 .env
 services/scrapper/test.js
+
+routes/index.js
+
+routes/user.js

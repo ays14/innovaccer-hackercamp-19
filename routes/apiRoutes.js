@@ -77,7 +77,7 @@ router.post('/diagnosis', (req, res) => {
 			}).catch((err) => {
 				console.log(err);
 				res.json({500: 'Invalid Request'});
-				res.end();	
+				res.end();
 			})
 		}).catch((err) => {
 			console.log(err);
@@ -189,7 +189,7 @@ router.get('/diagnosis/medication', (req, res) => {
 							res.json({500: 'Database error in update'});
 							res.end();
 						})
-						
+
 					}).catch((err) => {
 						console.log(err);
 						res.json({500: 'Scrap error'});
@@ -266,7 +266,7 @@ router.post('/diagnosis/r', (req, res) => {
 	let hash = services.genHashString();
 	services.getToken()
 	.then((hashToken) => {
-		let options = { 
+		let options = {
 			method: 'GET',
   			url: 'https://sandbox-healthservice.priaid.ch/diagnosis',
   			qs: {
@@ -275,7 +275,7 @@ router.post('/diagnosis/r', (req, res) => {
 				year_of_birth: req.body.year_of_birth,
 				gender: req.body.gender,
 				language: 'en-gb',
-				token: hashToken 
+				token: hashToken
 			},
 			json: true,
 			proxy: 'http://fabays:Ashi@202.141.80.20:3128'

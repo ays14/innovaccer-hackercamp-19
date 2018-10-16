@@ -6,8 +6,6 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 
 const config = require('./config');
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const apiRouter  = require('./routes/apiRoutes');
 
 mongoose.Promise = require('bluebird');
@@ -30,8 +28,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api', apiRouter);
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
