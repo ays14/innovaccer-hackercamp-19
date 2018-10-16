@@ -76,7 +76,7 @@ router.post('/diagnosis', (req, res) => {
 				res.end();
 			}).catch((err) => {
 				console.log(err);
-				res.json({500: 'Internal Server Error'});
+				res.json({500: 'Invalid Request'});
 				res.end();	
 			})
 		}).catch((err) => {
@@ -91,37 +91,42 @@ router.post('/diagnosis', (req, res) => {
 	}
 });
 
-router.post('/diagnosis/condition', (req, res) => {
-	let queryCondition = (req.body.condition).toLowerCase().trim();
-	let keys = ['Treatment', 'Prevention', 'Specialty'];
-	Conditions.findOne({condition: queryCondition}).then((doc) => {
-		if (doc === null) {
-			scrapper.scrapWiki(queryCondition).then((arr) => {
-			let info = scrapper.extractFromWiki(keys, arr);
-				Conditions.create({
-					'condition': queryCondition,
-					'treatment': info[0],
-					'prevention': info[1],
-					'specialty': info[2],
-				}).then((data) => {
-					console.log('Entry saved in database ' + data);
-					res.json({
-						'Condition':data.condition,
-						'Treatment':data.treatment,
-						'Prevention':data.prevention,
-						'Specialty':data.specialty
-					});
-					res.end();
+router.get('/diagnosis/condition', (req, res) => {
+	if (req.query.condition == null) {
+		console.log('Query Empty');
+		res.json({502:"Invalid request"})
+		res.end();
+	} else {
+		let queryCondition = (req.query.condition).toLowerCase().trim();
+		let keys = ['Treatment', 'Prevention', 'Specialty'];
+		Conditions.findOne({condition: queryCondition}).then((doc) => {
+			if (doc === null) {
+				scrapper.scrapWiki(queryCondition).then((arr) => {
+				let info = scrapper.extractFromWiki(keys, arr);
+					Conditions.create({
+						'condition': queryCondition,
+						'treatment': info[0],
+						'prevention': info[1],
+						'specialty': info[2],
+					}).then((data) => {
+						console.log('Entry saved in database ' + data);
+						res.json({
+							'Condition':data.condition,
+							'Treatment':data.treatment,
+							'Prevention':data.prevention,
+							'Specialty':data.specialty
+						});
+						res.end();
+					}).catch((err) => {
+						console.log(err);
+						res.json({500: 'Database error in create'});
+						res.end();
+					})
 				}).catch((err) => {
 					console.log(err);
-					res.json({500: 'Database error in create'});
+					res.json({500: 'Scrap error'});
 					res.end();
 				})
-			}).catch((err) => {
-				console.log(err);
-				res.json({500: 'Scrap error'});
-				res.end();
-			})
 			} else {
 				console.log('Entry found in db');
 				res.json({
@@ -137,61 +142,67 @@ router.post('/diagnosis/condition', (req, res) => {
 			res.json({500: 'Database error in find'});
 			res.end();
 		})
-	
+	}
 });
 
 router.get('/diagnosis/medication', (req, res) => {
-	let queryCondition = (req.query.condition).toLowerCase().trim();
-	Conditions.findOne({condition: queryCondition}).then((doc) => {
-		if (doc === null) {
-			console.log('No document found');
-			res.json({"Error":"Could not process query, POST /diagnosis/condition before this endpoint"});
-			res.end();
-		} else {
-			console.log('Document found');
-			if (doc.medication === null) {
-				console.log('Medication exists');
-				res.json({
-					'Condition':newDoc.condition,
-					'Treatment':newDoc.treatment,
-					'Prevention':newDoc.prevention,
-					'Specialty':newDoc.specialty,
-					'Medication':newDoc.medication
-				});
+	if (req.query.condition == null) {
+		console.log('Query empty');
+		res.json({502:"Invalid request"})
+		res.end();
+	} else {
+		let queryCondition = (req.query.condition).toLowerCase().trim();
+		Conditions.findOne({condition: queryCondition}).then((doc) => {
+			if (doc === null) {
+				console.log('No document found');
+				res.json({"Error":"Could not process query, POST /diagnosis/condition before this endpoint"});
 				res.end();
 			} else {
-				console.log('Medication does not exist');
-				scrapper.scrapEMed().then((drug) => {
-					let meds = scrapper.extractFromEMed(queryCondition, drug);
-					doc.medication = meds.replace(/\\n/g, '');
-					doc.save().then((newDoc) => {
-						console.log('Document Updated')
-						res.json({
-							'Condition':newDoc.condition,
-							'Treatment':newDoc.treatment,
-							'Prevention':newDoc.prevention,
-							'Specialty':newDoc.specialty,
-							'Medication':newDoc.medication
-						});
-						res.end();
+				console.log('Document found');
+				if (doc.medication !== null) {
+					console.log('Medication exists');
+					res.json({
+						'Condition':doc.condition,
+						'Treatment':doc.treatment,
+						'Prevention':doc.prevention,
+						'Specialty':doc.specialty,
+						'Medication':doc.medication
+					});
+					res.end();
+				} else {
+					console.log('Medication does not exist');
+					scrapper.scrapEMed().then((drug) => {
+						let meds = scrapper.extractFromEMed(queryCondition, drug);
+						doc.medication = meds.replace(/\\n|\d|\n|[[\]]/g, '');
+						doc.save().then((newDoc) => {
+							console.log('Document Updated')
+							res.json({
+								'Condition':newDoc.condition,
+								'Treatment':newDoc.treatment,
+								'Prevention':newDoc.prevention,
+								'Specialty':newDoc.specialty,
+								'Medication':newDoc.medication
+							});
+							res.end();
+						}).catch((err) => {
+							console.log(err);
+							res.json({500: 'Database error in update'});
+							res.end();
+						})
+						
 					}).catch((err) => {
 						console.log(err);
-						res.json({500: 'Database error in update'});
+						res.json({500: 'Scrap error'});
 						res.end();
 					})
-					
-				}).catch((err) => {
-					console.log(err);
-					res.json({500: 'Scrap error'});
-					res.end();
-				})
+				}
 			}
-		}
-	}).catch((err) => {
-		console.log(err);
-		res.json({500: 'Database error in find'});
-		res.end();
-	})
+		}).catch((err) => {
+			console.log(err);
+			res.json({500: 'Database error in find'});
+			res.end();
+		})
+	}
 });
 
 /*

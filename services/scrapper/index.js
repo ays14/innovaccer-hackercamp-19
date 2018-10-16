@@ -22,7 +22,6 @@ const scrapWiki = (searchString) => {
 		.click('#searchButton')
 		.wait('#content')
 		.evaluate((selector) => {
-			console.log('[Scrapper] Info found');
 			let nodeList = (document.querySelectorAll(selector))
 			let arr = [].slice.call(nodeList).map(nodeList =>  nodeList.innerText)
 			/* 
@@ -50,9 +49,8 @@ const scrapEMed = () => {
 		nightmare
 		.authentication(config.proxyUsername, config.proxyPassword)
 		.goto('https://www.emedexpert.com/lists/conditions.shtml')
-		.wait(3500)
+		.wait(3000)
 		.evaluate((selector) => {
-			console.log('[Scrapper] Info found');
 			let nodeList = document.querySelectorAll(selector)
 			let arr = [].slice.call(nodeList).map(nodeList => nodeList.innerText)
 			return arr
@@ -75,7 +73,7 @@ const extractFromWiki = (keywords, array) => {
 	array.forEach((index) => {
 		for (let j = 0; j< keywords.length; j++) {
 			if (index.toLowerCase().startsWith(keywords[j].toLowerCase())) {
-				data[j] = index.slice(keywords[j].length).trim();
+				data[j] = index.slice(keywords[j].length).trim().replace(/\\n|\d|\n|[[\]]/g, '');
 			}
 		}
 	})
@@ -104,6 +102,7 @@ const extractFromEMed = (condition, array) => {
 			return data;
 		}
 	}
+	data = 'Please consult physician. Could not find medications.';
 	return data;
 }; 
 
