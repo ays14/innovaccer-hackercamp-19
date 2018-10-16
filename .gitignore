@@ -1,7 +1,5 @@
 /node_modules
 .env
 services/scrapper/test.js
-
-routes/index.js
-
-routes/user.js
+yarn-error.log
+yarn.lock
