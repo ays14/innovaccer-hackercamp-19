@@ -92,7 +92,7 @@ router.post('/diagnosis', (req, res) => {
 });
 
 router.post('/diagnosis/condition', (req, res) => {
-	let queryCondition = (req.body.condition).toLowerCase();
+	let queryCondition = (req.body.condition).toLowerCase().trim();
 	let keys = ['Treatment', 'Prevention', 'Specialty'];
 	Conditions.findOne({condition: queryCondition}).then((doc) => {
 		if (doc === null) {
@@ -140,6 +140,59 @@ router.post('/diagnosis/condition', (req, res) => {
 	
 });
 
+router.get('/diagnosis/medication', (req, res) => {
+	let queryCondition = (req.query.condition).toLowerCase().trim();
+	Conditions.findOne({condition: queryCondition}).then((doc) => {
+		if (doc === null) {
+			console.log('No document found');
+			res.json({"Error":"Could not process query, POST /diagnosis/condition before this endpoint"});
+			res.end();
+		} else {
+			console.log('Document found');
+			if (doc.medication === null) {
+				console.log('Medication exists');
+				res.json({
+					'Condition':newDoc.condition,
+					'Treatment':newDoc.treatment,
+					'Prevention':newDoc.prevention,
+					'Specialty':newDoc.specialty,
+					'Medication':newDoc.medication
+				});
+				res.end();
+			} else {
+				console.log('Medication does not exist');
+				scrapper.scrapEMed().then((drug) => {
+					let meds = scrapper.extractFromEMed(queryCondition, drug);
+					doc.medication = meds.replace(/\\n/g, '');
+					doc.save().then((newDoc) => {
+						console.log('Document Updated')
+						res.json({
+							'Condition':newDoc.condition,
+							'Treatment':newDoc.treatment,
+							'Prevention':newDoc.prevention,
+							'Specialty':newDoc.specialty,
+							'Medication':newDoc.medication
+						});
+						res.end();
+					}).catch((err) => {
+						console.log(err);
+						res.json({500: 'Database error in update'});
+						res.end();
+					})
+					
+				}).catch((err) => {
+					console.log(err);
+					res.json({500: 'Scrap error'});
+					res.end();
+				})
+			}
+		}
+	}).catch((err) => {
+		console.log(err);
+		res.json({500: 'Database error in find'});
+		res.end();
+	})
+});
 
 /*
 // scrap data for API 3
