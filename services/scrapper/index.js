@@ -19,7 +19,7 @@ const nightmare = Nightmare({
 */
 // --> Comment for Proxy Setup : Line 20-24
 const nightmare = Nightmare({
-	show: true
+	show: true // Set it to false if no GUI is required
 });
 
 /**
