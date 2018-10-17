@@ -39,7 +39,7 @@ npm install
 ```
 
 
- 5. Make sure, **MongoDB** is running at your configured `db_url` in `.env` file.
+ 5. Make sure, **MongoDB** is running at your configured `db_url` in `.env` file. If not installed, then install from [here](https://docs.mongodb.com/manual/installation/)
 
 
  6. Run the program either by `npm` or `yarn` using
@@ -117,11 +117,13 @@ The project has 4 endpoints mounted at `{server_ip}/` namely -
 > It is mandatory for **MedicationInfo**, to be called after **ConditionInfo** has been called with same **query**.
 
 ---
-Because sometimes ==`NightmareJS` instance doesn't destroy completely== on slow web-servers, which it is trying to scrap. A request timeout may happen without launching Nighmare instance. This issue is being addressed by NighmareJS developers.
+Because sometimes `NightmareJS` instance doesn't destroy completely on slow web-servers, which it is trying to scrap. A request timeout may happen without launching Nighmare instance. This issue is being addressed by NighmareJS developers.
 
 By default, NightmareJS instance's `show property` is set to `true`. This asks NightmareJS to load a GUI instance of the browser. It can be set to `false` in [services/scrapper/index.js](https://github.com/ays14/innovaccer-hackercamp-19/blob/master/services/scrapper/index.js) -> Line: 22
 
-In the case, when either of the 'ConditionInfo' or 'MedicationInfo' show request timeout, ==**Please restart the server**==, and execute the same query then it will work fine.
+In the case, when either of the 'ConditionInfo' or 'MedicationInfo' show request timeout,
+### **Please restart the server**
+and execute the same query then it will work fine.
 
 ---
 
