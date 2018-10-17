@@ -16,7 +16,7 @@ const apiRouter  = require('./routes/apiRoutes');
 mongoose.Promise = require('bluebird');
 const connect = mongoose.connect(config.dbUrl);
 connect.then(() => {
-	console.log('Database connected');
+	console.log('[Database] \tConnected to database at: ' + config.dbUrl);
 });
 
 const app = express();
