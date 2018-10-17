@@ -115,7 +115,7 @@ The project has 4 endpoints namely -
 > **Note:** The project is completed while working behind a proxy server. There may be some proxy configuration in [API Docs]( https://innovaccer-hc-19.000webhostapp.com/), which can be simply ignored for non-proxy server environment.
 > It is mandatory for **MedicationInfo**, to be called after **ConditionInfo** has been called with same **query**.
 
-The documentation regarding all of the four above listed APIs can be found at [API Docs]( https://innovaccer-hc-19.000webhostapp.com/) or in the [`docs/index.html`](.../docs/index.html) where **docs** is a folder in the project.
+The documentation regarding all of the four above listed APIs can be found at [API Docs]( https://innovaccer-hc-19.000webhostapp.com/) or in the [`docs/index.html`](https://github.com/ays14/innovaccer-hackercamp-19/blob/master/docs/index.html) where **docs** is a folder in the project.
 
 ## Proxy setup
 
@@ -124,7 +124,7 @@ The code blocks to uncomment are commented with the line
 
 
 The line numbers for files are listed below
-- [config.js](.../config.js) -> Line: 10-15, 22-31
-- [services/index.js](.../services/index.js) -> Line: 9-17, 41-44
-- [services/scrapper/index.js](.../services/scrapper/index.js) -> Line: 7-9, 15-19, 32-34, 66-68
-- [routes/apiRoutes.js](.../routes/apiRoutes.js) -> Line: 14-22, 71-74, 171-174,
+- [config.js](https://github.com/ays14/innovaccer-hackercamp-19/blob/master/config.js) -> Line: 10-15, 22-31
+- [services/index.js](https://github.com/ays14/innovaccer-hackercamp-19/blob/master/services/index.js) -> Line: 9-17, 41-44
+- [services/scrapper/index.js](https://github.com/ays14/innovaccer-hackercamp-19/blob/master/services/scrapper/index.js) -> Line: 7-9, 15-19, 32-34, 66-68
+- [routes/apiRoutes.js](https://github.com/ays14/innovaccer-hackercamp-19/blob/master/routes/apiRoutes.js) -> Line: 14-22, 71-74, 171-174
