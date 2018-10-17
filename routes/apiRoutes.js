@@ -68,8 +68,8 @@ router.get('/symptoms', (req, res, next) => {
 			headers: {
 				'Authorization': `Bearer ${config.username}:${hash}`
 			},
-			/* --> Uncomment for Proxy Setup <--
 			proxy: false,
+			/* --> Uncomment for Proxy Setup <--
 			httpsAgent: agent,
 			*/
 			params: {
@@ -168,8 +168,8 @@ router.post('/diagnosis', (req, res, next) => {
 				headers: {
 					'Authorization': `Bearer ${config.username}:${hash}`
 				},
-				/* --> Uncomment for Proxy Setup <--
 				proxy: false,
+				/* --> Uncomment for Proxy Setup <--
 				httpsAgent: agent,
 				*/
 				params: {

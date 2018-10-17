@@ -38,8 +38,8 @@ const getToken = () => {
 			headers: {
 				'Authorization': `Bearer ${config.username}:${hashString}`
 			},
-			/* --> Uncomment for Proxy Setup <--
 			proxy: false,
+			/* --> Uncomment for Proxy Setup <--
 			httpsAgent: agent
 			*/
 		}).then((response) => {

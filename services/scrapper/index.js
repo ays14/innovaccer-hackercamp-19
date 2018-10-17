@@ -9,14 +9,17 @@ let proxy = 'http://'+ config.host + ':' + config.port;
 */
 
 // construct Nightmare instance
-// remove parameter = 'switches' to disable proxy tunnel
+/* --> Uncomment for Proxy Setup <--
 const nightmare = Nightmare({
 	show: false,
-	/* --> Uncomment for Proxy Setup <--
 	switches: {
 		'proxy-server': proxy
 	}
-	*/
+});
+*/
+// --> Comment for Proxy Setup : Line 20-24
+const nightmare = Nightmare({
+	show: true
 });
 
 /**
@@ -28,11 +31,12 @@ const nightmare = Nightmare({
 const scrapWiki = (searchString) => {
 	return new Promise((resolve, reject) => {
 		let selector = '#mw-content-text table.infobox tr';
-		nightmare
 		/* --> Uncomment for Proxy Setup <--
-		.authentication(config.proxyUsername, config.proxyPassword) // comment this to disable proxy authentication
+		nightmare.authentication(config.proxyUsername, config.proxyPassword) // comment this to disable proxy authentication
 		*/
+	nightmare
 		.goto('https://en.wikipedia.org')
+		.wait('#searchInput')
 		.type('#searchInput', searchString)
 		.click('#searchButton')
 		.wait('#content')
@@ -62,11 +66,12 @@ const scrapWiki = (searchString) => {
 const scrapEMed = () => {
 	return new Promise((resolve, reject) => {
 		let selector = 'table.listtable tr td';
-		nightmare
 		/* --> Uncomment for Proxy Setup <--
-		.authentication(config.proxyUsername, config.proxyPassword) // comment this to disable proxy authentication
+		nightmare.authentication(config.proxyUsername, config.proxyPassword) // comment this to disable proxy authentication
 		*/
+	nightmare
 		.goto('https://www.emedexpert.com/lists/conditions.shtml')
+		.wait('#fb-root')
 		.wait(3000)
 		.evaluate((selector) => {
 			let nodeList = document.querySelectorAll(selector)

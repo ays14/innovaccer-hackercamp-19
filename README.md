@@ -122,9 +122,10 @@ The documentation regarding all of the four above listed APIs can be found at [A
 The code blocks to uncomment are commented with the line
 **`--> Uncomment for Proxy Setup <--`**
 
-
 The line numbers for files are listed below
 - [config.js](https://github.com/ays14/innovaccer-hackercamp-19/blob/master/config.js) -> Line: 10-15, 22-31
-- [services/index.js](https://github.com/ays14/innovaccer-hackercamp-19/blob/master/services/index.js) -> Line: 9-17, 41-44
-- [services/scrapper/index.js](https://github.com/ays14/innovaccer-hackercamp-19/blob/master/services/scrapper/index.js) -> Line: 7-9, 15-19, 32-34, 66-68
-- [routes/apiRoutes.js](https://github.com/ays14/innovaccer-hackercamp-19/blob/master/routes/apiRoutes.js) -> Line: 14-22, 71-74, 171-174
+- [services/index.js](https://github.com/ays14/innovaccer-hackercamp-19/blob/master/services/index.js) -> Line: 9-17, 42-44
+- [services/scrapper/index.js](https://github.com/ays14/innovaccer-hackercamp-19/blob/master/services/scrapper/index.js) -> Line: 7-9, 12-19, 34-36, 69-71
+> In the same file comment the section -> Line: 20-24 
+
+- [routes/apiRoutes.js](https://github.com/ays14/innovaccer-hackercamp-19/blob/master/routes/apiRoutes.js) -> Line: 14-22, 72-74, 172-174
