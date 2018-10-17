@@ -1,3 +1,4 @@
+
 # Innovaccer HackerCamp '19
 
 ## Assignment for SDE - Intern (Applications)
@@ -17,15 +18,13 @@ cd innovaccer-hackercamp-19
 
 2. Create `.env` file as per the sample `EXAMPLE.env` file in the root of your project.
 
-*Lines beginning with '#' are comments and are not required in `.env`*
+*Lines beginning with '#' are comments and are not required in `.env`
+ By default, the working environment, 'env' is set equal to 'development'*
 
 
-> By default, the working environmet, 'env' is set equal to 'development'
- 
- 
  3. If you are working behind a **Proxy Server** then uncomment all the proxy blocks in the code and configure proxy configuration in `.env`.
- 
- 
+
+
  4. Use `npm` or `yarn` to install dependencies for the project
 ```bash
 yarn
@@ -34,11 +33,11 @@ OR
 ```bash
 npm install
 ```
- 
- 
+
+
  5. Make sure, **MongoDB** is running at your configured `db_url` in `.env` file.
- 
- 
+
+
  6. Run the program either by `npm` or `yarn` using
 ```bash
 yarn start
@@ -56,6 +55,50 @@ The **console** logs the following if the app is running properly
 
 ## Project Folder Structure
 
+> **Note**: The folder tree does not include sub-directories for common/generated folders. For example - `node_modules`.
+
+ - Sub-directories of the folders marked with **' * '** are not shown for clarity.
+ - Folders are typed in **bold**
+
+```bash
+─── innovaccer-hackercamp-19
+    ├── app.js*
+    ├── bin
+    │   └── www
+    ├── config.js
+    ├── docs
+    │   ├── api_data.js
+    │   ├── api_data.json
+    │   ├── api_project.js
+    │   ├── api_project.json
+    │   ├── css*
+    │   ├── fonts*
+    │   ├── img*
+    │   ├── index.html
+    │   ├── locales*
+    │   ├── main.js
+    │   ├── utils*
+    │   └── vendor*
+    ├── EXAMPLE.env
+    ├── .env
+    ├── .git*
+    ├── .gitignore
+    ├── models
+    │   └── Conditions.js
+    ├── node_modules*
+    ├── package.json
+    ├── public*
+    ├── README.md
+    ├── routes
+    │   └── apiRoutes.js
+    ├── services
+    │   ├── index.js
+    │   └── scrapper
+    │       └── index.js
+    └── views*
+    ├── yarn-error.log
+    └── yarn.lock
+```
 
 ## APIs
 
