@@ -2,6 +2,12 @@
   "name": "Innovaccer-HackerCamp-2019",
   "version": "1.0.0",
   "private": true,
+  "homepage": "https://github.com/ays14/innovaccer-hackercamp-19",
+  "author": {
+    "name": "Ayush Sharma",
+    "email": "ayush.sh143@gmail.com",
+    "url": "http://github.com/ays14"
+  },
   "scripts": {
     "start": "node ./bin/www",
     "startDev": "nodemon ./bin/www"
@@ -29,5 +35,8 @@
     "nightmare": "^3.0.1",
     "promise": "^8.0.2",
     "tunnel": "^0.0.6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
   }
 }

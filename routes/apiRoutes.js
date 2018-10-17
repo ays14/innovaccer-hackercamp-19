@@ -11,14 +11,15 @@ const tunnel = require('tunnel');
 const Conditions = require('../models/Conditions');
 
 // establish proxy tunnel when working behind a proxy server
-// comment this block of 'agent' to disable tunnel
+/* --> Uncomment for Proxy Setup <--
 const agent = tunnel.httpsOverHttp({
 		proxy: {
 			host: config.host,
 			port: config.port,
 			proxyAuth: config.proxyUsername.concat(':').concat(config.proxyPassword),
 		}
-	});
+});
+*/
 
 // API 1 - Get symptoms from ApiMedic
 /**
@@ -67,9 +68,10 @@ router.get('/symptoms', (req, res, next) => {
 			headers: {
 				'Authorization': `Bearer ${config.username}:${hash}`
 			},
-			// comment 'proxy' & 'httpsAgent' parameters if not working behind a proxy server
+			/* --> Uncomment for Proxy Setup <--
 			proxy: false,
 			httpsAgent: agent,
+			*/
 			params: {
 				token: hashToken,
 				language: 'en-gb'
@@ -166,9 +168,10 @@ router.post('/diagnosis', (req, res, next) => {
 				headers: {
 					'Authorization': `Bearer ${config.username}:${hash}`
 				},
-				// comment 'proxy' & 'httpsAgent' parameters if not working behind a proxy server
+				/* --> Uncomment for Proxy Setup <--
 				proxy: false,
 				httpsAgent: agent,
+				*/
 				params: {
 					token: hashToken,
 					language: 'en-gb',

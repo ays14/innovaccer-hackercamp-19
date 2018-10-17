@@ -6,7 +6,7 @@ const tunnel = require('tunnel');
 const Promise = require('promise');
 
 // establish proxy tunnel when working behind a proxy server
-// comment this block of 'agent' to disable tunnel
+/* --> Uncomment for Proxy Setup <--
 const agent = tunnel.httpsOverHttp({
 		proxy: {
 			host: config.host,
@@ -14,6 +14,7 @@ const agent = tunnel.httpsOverHttp({
 			proxyAuth: config.proxyUsername.concat(':').concat(config.proxyPassword),
 		}
 	});
+*/
 
 // generate hashed string
 const genHashString = () => {
@@ -37,9 +38,10 @@ const getToken = () => {
 			headers: {
 				'Authorization': `Bearer ${config.username}:${hashString}`
 			},
-			// comment 'proxy' & 'httpsAgent' parameters if not working behind a proxy server
+			/* --> Uncomment for Proxy Setup <--
 			proxy: false,
 			httpsAgent: agent
+			*/
 		}).then((response) => {
 			console.log('[Service] \tToken collected');
 			let token = response.data.Token;

@@ -4,8 +4,9 @@
 ## Assignment for SDE - Intern (Applications)
 
 - **NodeJS** using Express framework with **MongoDB** as database.
-- Click for [Problem Statement](https://www.innovaccer.com/media/hackercamp/SDE-Intern-(Applications).pdf).
-- Click here for [API Docs]( https://innovaccer-hc-19.000webhostapp.com/)
+- [Innovaccer HackerCamp Homepage]
+- The [Problem Statement](https://www.innovaccer.com/media/hackercamp/SDE-Intern-(Applications).pdf) for HackerCamp '19.
+- [API Docs]( https://innovaccer-hc-19.000webhostapp.com/) for all the [APIs](#apis).
 
 ## Installation
 
@@ -24,6 +25,8 @@ cd innovaccer-hackercamp-19
 
  3. If you are working behind a **Proxy Server** then uncomment all the proxy blocks in the code and configure proxy configuration in `.env`.
 
+*Which blocks in code are to be uncommented?*
+This is answered in [Proxy Setup](#proxy-setup)
 
  4. Use `npm` or `yarn` to install dependencies for the project
 ```bash
@@ -46,6 +49,7 @@ OR
 ```bash
 npm start
 ```
+> `yarn startDev` or `npm startDev` script is for starting with `nodemon`.
 
 
 The **console** logs the following if the app is running properly
@@ -103,11 +107,24 @@ The **console** logs the following if the app is running properly
 ## APIs
 
 The project has 4 endpoints namely -
- 1.  Symptoms
+ 1. Symptoms
  2. Diagnosis
  3. ConditionInfo
  4. MedicationInfo
 
+> **Note:** The project is completed while working behind a proxy server. There may be some proxy configuration in [API Docs]( https://innovaccer-hc-19.000webhostapp.com/), which can be simply ignored for non-proxy server environment.
 > It is mandatory for **MedicationInfo**, to be called after **ConditionInfo** has been called with same **query**.
 
 The documentation regarding all of the four above listed APIs can be found at [API Docs]( https://innovaccer-hc-19.000webhostapp.com/) or in the [`docs/index.html`](.../docs/index.html) where **docs** is a folder in the project.
+
+## Proxy setup
+
+The code blocks to uncomment are commented with the line
+**`--> Uncomment for Proxy Setup <--`**
+
+
+The line numbers for files are listed below
+- [config.js](.../config.js) -> Line: 10-15, 22-31
+- [services/index.js](.../services/index.js) -> Line: 9-17, 41-44
+- [services/scrapper/index.js](.../services/scrapper/index.js) -> Line: 7-9, 15-19, 32-34, 66-68
+- [routes/apiRoutes.js](.../routes/apiRoutes.js) -> Line: 14-22, 71-74, 171-174,

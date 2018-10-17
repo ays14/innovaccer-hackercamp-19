@@ -4,16 +4,19 @@ const config = require('../../config');
 const Promise = require('promise');
 
 // set proxy details
-// comment to disable tunnel
+/* --> Uncomment for Proxy Setup <--
 let proxy = 'http://'+ config.host + ':' + config.port;
+*/
 
 // construct Nightmare instance
 // remove parameter = 'switches' to disable proxy tunnel
 const nightmare = Nightmare({
 	show: false,
+	/* --> Uncomment for Proxy Setup <--
 	switches: {
 		'proxy-server': proxy
 	}
+	*/
 });
 
 /**
@@ -26,7 +29,9 @@ const scrapWiki = (searchString) => {
 	return new Promise((resolve, reject) => {
 		let selector = '#mw-content-text table.infobox tr';
 		nightmare
+		/* --> Uncomment for Proxy Setup <--
 		.authentication(config.proxyUsername, config.proxyPassword) // comment this to disable proxy authentication
+		*/
 		.goto('https://en.wikipedia.org')
 		.type('#searchInput', searchString)
 		.click('#searchButton')
@@ -58,7 +63,9 @@ const scrapEMed = () => {
 	return new Promise((resolve, reject) => {
 		let selector = 'table.listtable tr td';
 		nightmare
+		/* --> Uncomment for Proxy Setup <--
 		.authentication(config.proxyUsername, config.proxyPassword) // comment this to disable proxy authentication
+		*/
 		.goto('https://www.emedexpert.com/lists/conditions.shtml')
 		.wait(3000)
 		.evaluate((selector) => {
