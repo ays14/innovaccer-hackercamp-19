@@ -22,10 +22,11 @@ const agent = tunnel.httpsOverHttp({
 
 // API 1 - Get symptoms from ApiMedic
 /**
- * @api {get} /symptoms List all symptoms from ApiMedic
- * @apiName Symptoms
+ * @api {get} /symptoms Symptoms
+ * @apiName SymptomsAPI
  * @apiGroup API
- * @apiSampleRequest /symptoms
+ * @apiVersion 1.0.0
+ * @apiDescription List all symptoms from ApiMedic
  * @apiSuccess {Object[]} Symptoms List of symptoms
  * @apiSuccess {Number} Symptoms.ID Symptom ID
  * @apiSuccess {String} Symptoms.Name Symptom Name
@@ -87,10 +88,11 @@ router.get('/symptoms', (req, res, next) => {
 
 // API 2 - Get diagnosis/medical condition for a given symptom or set of symptoms
 /**
- * @api {post} /diagnosis List diagnosis for given symptom(s)
- * @apiName Diagnosis
+ * @api {post} /diagnosis Diagnosis
+ * @apiName DiagnosisAPI
  * @apiGroup API
- * @apiSampleRequest /diagnosis
+ * @apiVersion 1.0.0
+ * @apiDescription List diagnosis for given symptom(s)
  * @apiParam {Number[]} symptoms Array of Symptom IDs for which to perform diagnosis
  * @apiParam {String="male","female"} gender Gender of the patient
  * @apiParam {Number} year_of_birth Year of Birth of the patient
@@ -195,10 +197,11 @@ router.post('/diagnosis', (req, res, next) => {
 // API 3a - Scrap condition data for 'Treatment','Prevention' and 'Specialty' for a given diagnosis/medical condition
 // This endpoint is to be called before API 3b
 /**
- * @api {get} /diagnosis/condtion Advises for given diagnosis/medical condition
- * @apiName ConditionInfo
+ * @api {get} /diagnosis/condtion ConditionInfo
+ * @apiName ConditionInfoAPI
  * @apiGroup API
- * @apiSampleRequest /diagnosis/condtion?condtion=Pneumonia
+ * @apiVersion 1.0.0
+ * @apiDescription Advises for given diagnosis/medical condition
  * @apiParam {String} condition Name of the Issue/condtion
  * @apiParamExample {json} Request-Example:
  * 	{
@@ -293,10 +296,11 @@ router.get('/diagnosis/condition', (req, res, next) => {
 // API 3b - Scrap condition data for 'Medication' for a given diagnosis/medical condition
 // This endpoint is to be called after API 3a
 /**
- * @api {get} /diagnosis/medication Advises for given diagnosis/medical condition
- * @apiName MedicationInfo
+ * @api {get} /diagnosis/medication MedicationInfo
+ * @apiName MedicationInfoAPI
  * @apiGroup API
- * @apiSampleRequest /diagnosis/medication?condtion=Kidney%20Stones
+ * @apiVersion 1.0.0
+ * @apiDescription Advises for given diagnosis/medical condition
  * @apiParam {String} condition Name of the Issue/condtion
  * @apiParamExample {json} Request-Example:
  * 	{

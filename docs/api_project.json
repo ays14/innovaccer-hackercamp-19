@@ -1,0 +1,18 @@
+{
+  "name": "Innovaccer-HackerCamp-2019",
+  "title": "SDE - Intern (Applications)",
+  "description": "Assignment under SDE - Intern (Applications) written in NodeJS using Express framework with MongoDB as database.",
+  "template": {
+    "forceLanguage": "en"
+  },
+  "version": "1.0.0",
+  "sampleUrl": false,
+  "defaultVersion": "0.0.0",
+  "apidoc": "0.3.0",
+  "generator": {
+    "name": "apidoc",
+    "time": "2018-10-17T11:58:44.051Z",
+    "url": "http://apidocjs.com",
+    "version": "0.17.6"
+  }
+}

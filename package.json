@@ -7,11 +7,11 @@
     "startDev": "nodemon ./bin/www"
   },
   "apidoc": {
-    "name":"Innovaccer-HackerCamp-2019",
-    "title":"SDE - Intern (Applications)",
-    "description":"Assignment under SDE - Intern (Applications) written in NodeJS using Express framework with MongoDB as database.",
+    "name": "Innovaccer-HackerCamp-2019",
+    "title": "SDE - Intern (Applications)",
+    "description": "Assignment under SDE - Intern (Applications) written in NodeJS using Express framework with MongoDB as database.",
     "template": {
-      "forceLanguage":"en"
+      "forceLanguage": "en"
     }
   },
   "dependencies": {
