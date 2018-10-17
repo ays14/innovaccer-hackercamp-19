@@ -1,10 +1,18 @@
 {
-  "name": "app",
-  "version": "0.0.0",
+  "name": "Innovaccer-HackerCamp-2019",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
     "startDev": "nodemon ./bin/www"
+  },
+  "apidoc": {
+    "name":"Innovaccer-HackerCamp-2019",
+    "title":"SDE - Intern (Applications)",
+    "description":"Assignment under SDE - Intern (Applications) written in NodeJS using Express framework with MongoDB as database.",
+    "template": {
+      "forceLanguage":"en"
+    }
   },
   "dependencies": {
     "axios": "^0.18.0",
