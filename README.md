@@ -9,7 +9,7 @@
 - [API Docs]( https://innovaccer-hc-19.000webhostapp.com/) for all the [APIs](#apis).
 - Project [Homepage](https://github.com/ays14/innovaccer-hackercamp-19)
 
-Project is based on with **SandBox API** of ApiMedic API.
+Project is based on **SandBox API** of ApiMedic API.
 
 ## Installation
 
@@ -69,7 +69,7 @@ The **console** logs the following if the app is running properly
 
 ```bash
 ─── innovaccer-hackercamp-19
-    ├── app.js*
+    ├── app.js
     ├── bin
     │   └── www
     ├── config.js
