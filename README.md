@@ -9,6 +9,8 @@
 - [API Docs]( https://innovaccer-hc-19.000webhostapp.com/) for all the [APIs](#apis).
 - Project [Homepage](https://github.com/ays14/innovaccer-hackercamp-19)
 
+Project is based on with **SandBox API** of ApiMedic API.
+
 ## Installation
 
 1. Clone the repository using `git clone` and then change the directory to root of the project
@@ -18,7 +20,7 @@ cd innovaccer-hackercamp-19
 ```
 
 
-2. Create `.env` file as per the sample `EXAMPLE.env` file in the root of your project.
+2. Create `.env` file as per the sample `EXAMPLE.env` file in the root of your project. The username and password are the credentials for Sandbox Api for ApiMedic API. These credentials are API keys and can be found [here](https://apimedic.com/apikeys). Please make an account [here](https://apimedic.com/signup), if you don't have one to get your API keys.
 
 *Lines beginning with '#' are comments and are not required in `.env`
  By default, the working environment, 'env' is set equal to 'development'*
