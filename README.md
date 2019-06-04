@@ -6,7 +6,7 @@
 - **NodeJS** using Express framework with **MongoDB** as database.
 - [Innovaccer HackerCamp Homepage](https://www.innovaccer.com/hackercamp)
 - The [Problem Statement](https://www.innovaccer.com/media/hackercamp/SDE-Intern-(Applications).pdf) for HackerCamp '19.
-- [API Docs]( https://innovaccer-hc-19.000webhostapp.com/) for all the [APIs](#apis).
+- [API Docs]( https://ays14.github.io/innovaccer-hackercamp-19/ ) for all the [APIs](#apis).
 - Project [Homepage](https://github.com/ays14/innovaccer-hackercamp-19)
 
 Project is based on **SandBox API** of ApiMedic API.
@@ -115,7 +115,7 @@ The project has 4 endpoints mounted at `{server_ip}/` namely -
  3. ConditionInfo
  4. MedicationInfo
 
-> **Note:** The project is completed while working behind a proxy server. There may be some proxy configuration in [API Docs]( https://innovaccer-hc-19.000webhostapp.com/), which can be simply ignored for non-proxy server environment.
+> **Note:** The project is completed while working behind a proxy server. There may be some proxy configuration in [API Docs]( https://ays14.github.io/innovaccer-hackercamp-19/), which can be simply ignored for non-proxy server environment.
 > It is mandatory for **MedicationInfo**, to be called after **ConditionInfo** has been called with same **query**.
 
 ---
@@ -129,7 +129,7 @@ and execute the same query then it will work fine.
 
 ---
 
-The documentation regarding all of the four above listed APIs can be found at [API Docs]( https://innovaccer-hc-19.000webhostapp.com/) or in the [`docs/index.html`](https://github.com/ays14/innovaccer-hackercamp-19/blob/master/docs/index.html) where **docs** is a folder in the project.
+The documentation regarding all of the four above listed APIs can be found at [API Docs]( https://ays14.github.io/innovaccer-hackercamp-19/) or in the [`docs/index.html`](https://github.com/ays14/innovaccer-hackercamp-19/blob/master/docs/index.html) where **docs** is a folder in the project.
 
 ## Proxy setup
 
